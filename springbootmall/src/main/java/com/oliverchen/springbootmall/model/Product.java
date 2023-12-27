@@ -1,11 +1,13 @@
 package com.oliverchen.springbootmall.model;
 
+import com.oliverchen.springbootmall.constant.ProductEnum;
+
 import java.sql.Date;
 
 public class Product {
    private Integer productId;
    private String productName;
-   private String category;
+   private ProductEnum category;
    private String imageUrl;
    private Integer price;
    private Integer stock;
@@ -29,11 +31,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCategory() {
+    public ProductEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductEnum category) {
         this.category = category;
     }
 
