@@ -2,7 +2,7 @@ package com.oliverchen.springbootmall.model;
 
 import com.oliverchen.springbootmall.constant.ProductEnum;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Product {
    private Integer productId;
