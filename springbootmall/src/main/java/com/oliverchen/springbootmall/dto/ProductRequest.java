@@ -3,7 +3,6 @@ package com.oliverchen.springbootmall.dto;
 import com.oliverchen.springbootmall.constant.ProductEnum;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 
 
