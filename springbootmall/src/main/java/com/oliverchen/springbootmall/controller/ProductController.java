@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -57,6 +58,13 @@ public class ProductController {
         productService.deleteProduct(productId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts(){
+       List<Product> lists =  productService.getAllProducts();
+
+       return ResponseEntity.status(HttpStatus.OK).body(lists);
     }
 
 }
