@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    @GetMapping("/product/{productId}")
+    @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProductById(@PathVariable Integer productId){
 
         Product product = productService.getProductById(productId);
@@ -27,7 +27,7 @@ public class ProductController {
         }
 
     }
-    @PostMapping("/product")
+    @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
         Integer productId = productService.createProduct(productRequest);
 
@@ -35,7 +35,7 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
-    @PutMapping("/product/{productId}")
+    @PutMapping("/products/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer productId, @RequestBody @Valid ProductRequest productRequest){
 
         Product product = productService.getProductById(productId);
@@ -51,7 +51,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
     }
 
-    @DeleteMapping("/product/{productId}")
+    @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer productId){
 
         productService.deleteProduct(productId);
