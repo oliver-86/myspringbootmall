@@ -1,6 +1,8 @@
 package com.oliverchen.springbootmall.controller;
 
+import com.oliverchen.springbootmall.constant.ProductEnum;
 import com.oliverchen.springbootmall.dto.ProductRequest;
+import com.oliverchen.springbootmall.dto.RequestParameter;
 import com.oliverchen.springbootmall.model.Product;
 import com.oliverchen.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +63,15 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(){
-       List<Product> lists =  productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts(
+           @RequestParam(required = false) ProductEnum category,
+           @RequestParam(required = false) String search
+    ){
+       RequestParameter requestParam = new  RequestParameter();
+       requestParam.setSearch(search);
+       requestParam.setCategory(category);
+
+       List<Product> lists =  productService.getAllProducts(requestParam);
 
        return ResponseEntity.status(HttpStatus.OK).body(lists);
     }

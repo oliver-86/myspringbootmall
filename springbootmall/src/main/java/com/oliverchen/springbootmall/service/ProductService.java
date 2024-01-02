@@ -1,6 +1,7 @@
 package com.oliverchen.springbootmall.service;
 
 import com.oliverchen.springbootmall.dto.ProductRequest;
+import com.oliverchen.springbootmall.dto.RequestParameter;
 import com.oliverchen.springbootmall.model.Product;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface ProductService {
 
     void deleteProduct(Integer productId);
 
-    List<Product> getAllProducts();
+    List<Product> getAllProducts(RequestParameter requestParameter);
 }

@@ -1,6 +1,7 @@
 package com.oliverchen.springbootmall.dao;
 
 import com.oliverchen.springbootmall.dto.ProductRequest;
+import com.oliverchen.springbootmall.dto.RequestParameter;
 import com.oliverchen.springbootmall.model.Product;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface ProductDao {
 
     void deleteProduct(Integer productId);
 
-    List<Product> getAllProducts();
+    List<Product> getAllProducts(RequestParameter requestParameter);
 }

@@ -2,6 +2,7 @@ package com.oliverchen.springbootmall.service.impl;
 
 import com.oliverchen.springbootmall.dao.ProductDao;
 import com.oliverchen.springbootmall.dto.ProductRequest;
+import com.oliverchen.springbootmall.dto.RequestParameter;
 import com.oliverchen.springbootmall.model.Product;
 import com.oliverchen.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productDao.getAllProducts();
+    public List<Product> getAllProducts(RequestParameter requestParameter) {
+        return productDao.getAllProducts(requestParameter);
     }
 }

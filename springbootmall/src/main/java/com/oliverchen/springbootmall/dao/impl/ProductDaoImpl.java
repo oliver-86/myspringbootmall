@@ -2,6 +2,7 @@ package com.oliverchen.springbootmall.dao.impl;
 
 import com.oliverchen.springbootmall.dao.ProductDao;
 import com.oliverchen.springbootmall.dto.ProductRequest;
+import com.oliverchen.springbootmall.dto.RequestParameter;
 import com.oliverchen.springbootmall.model.Product;
 import com.oliverchen.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Override
     public Product getProductById(Integer productId) {
-        String sql = "SELECT product_id,product_name,category, image_url, price, stock, description, create_date, last_modified_date\n" +
+        String sql = "SELECT product_id,product_name,category, image_url, price, stock, description, created_date, last_modified_date\n" +
                 "FROM product \n" +
                 "WHERE product_id = :productId";
         Map<String,Object> map = new HashMap<>();
@@ -40,7 +41,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Integer createProduct(ProductRequest productRequest) {
-        String sql = "INSERT INTO product (product_name,category,image_url,price,stock,description,create_date,last_modified_date)" +
+        String sql = "INSERT INTO product (product_name,category,image_url,price,stock,description,created_date,last_modified_date)" +
                 " VALUES (:productName,:category,:imageUrl,:price,:stock,:description,:createDate,:lastModifiedDate)";
         Map<String,Object> map = new HashMap<>();
         map.put("productName",productRequest.getProductName());
@@ -93,10 +94,23 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(RequestParameter requestParameter) {
         String sql = "SELECT product_id,product_name,category, image_url, price, stock, description," +
-                " create_date, last_modified_date FROM product";
+                " created_date, last_modified_date FROM product WHERE 1=1";
+
         Map<String,Object> map = new HashMap<>();
+
+        if(requestParameter.getSearch() != null){
+            sql = sql + " AND product_name LIKE :productName";
+            map.put("productName" , "%"+requestParameter.getSearch()+"%");
+        }
+
+        if(requestParameter.getCategory() != null){
+            sql = sql + " AND category = :category";
+            map.put("category",requestParameter.getCategory().name());
+        }
+
+
         ProductRowMapper productRowMapper = new ProductRowMapper();
         List<Product> productList = namedParameterJdbcTemplate.query(sql,map,productRowMapper);
         return productList;
