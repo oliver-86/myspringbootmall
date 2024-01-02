@@ -65,11 +65,16 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(
            @RequestParam(required = false) ProductEnum category,
-           @RequestParam(required = false) String search
+           @RequestParam(required = false) String search,
+
+           @RequestParam(defaultValue = "created_date") String orderBy,
+           @RequestParam(defaultValue = "desc") String sort
     ){
        RequestParameter requestParam = new  RequestParameter();
        requestParam.setSearch(search);
        requestParam.setCategory(category);
+       requestParam.setSort(sort);
+       requestParam.setOrderBy(orderBy);
 
        List<Product> lists =  productService.getAllProducts(requestParam);
 
