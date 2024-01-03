@@ -17,4 +17,6 @@ public interface ProductService {
     void deleteProduct(Integer productId);
 
     List<Product> getAllProducts(RequestParameter requestParameter);
+
+    Integer getProductTotal(RequestParameter requestParam);
 }

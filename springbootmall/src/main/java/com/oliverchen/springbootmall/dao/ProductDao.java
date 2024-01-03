@@ -16,4 +16,6 @@ public interface ProductDao {
     void deleteProduct(Integer productId);
 
     List<Product> getAllProducts(RequestParameter requestParameter);
+
+    Integer getProductTotal(RequestParameter requestParam);
 }

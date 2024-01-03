@@ -39,4 +39,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProducts(RequestParameter requestParameter) {
         return productDao.getAllProducts(requestParameter);
     }
+
+    @Override
+    public Integer getProductTotal(RequestParameter requestParam) {
+        return productDao.getProductTotal(requestParam);
+    }
 }

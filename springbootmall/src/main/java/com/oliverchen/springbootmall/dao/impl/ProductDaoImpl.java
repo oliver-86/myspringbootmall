@@ -112,9 +112,33 @@ public class ProductDaoImpl implements ProductDao {
 
         sql = sql + " ORDER BY "+requestParameter.getOrderBy() + " " + requestParameter.getSort();
 
+        sql = sql + " LIMIT :limit OFFSET :offset";
+
+        map.put("limit",requestParameter.getLimit());
+        map.put("offset",requestParameter.getOffset());
 
         ProductRowMapper productRowMapper = new ProductRowMapper();
         List<Product> productList = namedParameterJdbcTemplate.query(sql,map,productRowMapper);
         return productList;
+    }
+
+    @Override
+    public Integer getProductTotal(RequestParameter requestParameter) {
+        String sql = "SELECT COUNT(*) FROM product WHERE 1=1";
+
+        Map<String,Object> map = new HashMap<>();
+
+        if(requestParameter.getSearch() != null){
+            sql = sql + " AND product_name LIKE :productName";
+            map.put("productName" , "%"+requestParameter.getSearch()+"%");
+        }
+
+        if(requestParameter.getCategory() != null){
+            sql = sql + " AND category = :category";
+            map.put("category",requestParameter.getCategory().name());
+        }
+
+        Integer count = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
+        return count;
     }
 }
