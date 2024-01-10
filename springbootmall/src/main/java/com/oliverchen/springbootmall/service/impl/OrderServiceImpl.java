@@ -23,27 +23,50 @@ public class OrderServiceImpl implements OrderService {
     private ProductDao productDao;
     @Override
     public Integer addOrder(Integer userId, CreateOrderRequest createOrderRequest) {
-        int totalAmount = 0;
-        List<OrderItem> orderItemList  = new ArrayList<>();
+//        int totalAmount = 0;
+//        List<OrderItem> orderItemList  = new ArrayList<>();
+//
+//        for(BuyItem buyItem : createOrderRequest.getBuyItemList()){
+//            int quantity = buyItem.getQuantity();
+//
+//            Product p = productDao.getProductById(buyItem.getProductId());
+//            int price = p.getPrice();
+//
+//            int amount =quantity*price;
+//
+//            totalAmount += amount;
+//
+//            //BuyItem to OrderItem
+//
+//            OrderItem orderItem = new OrderItem();
+//            orderItem.setProductId(p.getProductId());
+//            orderItem.setAmount(amount);
+//            orderItem.setQuantity(quantity);
+//
+//            orderItemList.add(orderItem);
+//        }
+//
+//        Integer orderId = orderDao.createOrder(userId,totalAmount);
+//
+//        orderDao.createOrderItem(orderId,orderItemList);
+//
+//        return orderId;
+        Integer totalAmount = 0;
+        List<OrderItem> orderItemList = new ArrayList<>();
 
         for(BuyItem buyItem : createOrderRequest.getBuyItemList()){
-            int quantity = buyItem.getQuantity();
+           int quantity =  buyItem.getQuantity();
+           int productId = buyItem.getProductId();
+           int productPrice = productDao.getProductById(productId).getPrice();
 
-            Product p = productDao.getProductById(buyItem.getProductId());
-            int price = p.getPrice();
+           int amount = quantity*productPrice;
+           totalAmount+=amount;
 
-            int amount =quantity*price;
-
-            totalAmount += amount;
-
-            //BuyItem to OrderItem
-
-            OrderItem orderItem = new OrderItem();
-            orderItem.setProductId(p.getProductId());
-            orderItem.setAmount(amount);
-            orderItem.setQuantity(quantity);
-
-            orderItemList.add(orderItem);
+           OrderItem orderItem = new OrderItem();
+           orderItem.setQuantity(quantity);
+           orderItem.setProductId(productId);
+           orderItem.setAmount(amount);
+           orderItemList.add(orderItem);
         }
 
         Integer orderId = orderDao.createOrder(userId,totalAmount);
